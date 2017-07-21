@@ -1,5 +1,8 @@
 package demo;
 
+import gxTest.gxFunc;
+
+import org.beetl.core.GroupTemplate;
 import org.beetl.ext.jfinal3.JFinal3BeetlRenderFactory;
 
 import com.jfinal.config.*;
@@ -22,6 +25,10 @@ public class DemoConfig extends JFinalConfig{
 		JFinal3BeetlRenderFactory rf = new JFinal3BeetlRenderFactory();
 		rf.config();
 		me.setRenderFactory(rf);
+		
+		// 获取GroupTemplate ,可以设置共享变量等操作  作用是在渲染界面的时候如果出现界面中的方法 也可以执行
+		GroupTemplate groupTemplate = rf.groupTemplate;
+		groupTemplate.registerFunctionPackage("flyfox", gxFunc.class);
 	}
 
 	@Override
