@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试渲染</title>
+<script src="${BASE_PATH}js/jquery.js"></script>
+</head>
+<body>
+新增用户：
+<form method="post" action="${BASE_PATH}front/article/addUser.html">
+	<table>
+		<tr>
+			<td>姓名：</td>
+			<td><input name="userInfo.username"/></td>
+		</tr>
+		<tr>
+			<td>年龄：</td>
+			<td><input name="userInfo.age"/></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="提交"/></td>
+		</tr>
+	</table>
+</form>
+<br/>
+查找用户：
+<form method="post" action="${BASE_PATH}front/article/findDate">
+	<table>
+		<tr>
+			<td>姓名：</td>
+			<td><input name="username"/></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="提交"/></td>
+		</tr>
+	</table>
+</form>
+<br/>
+全部用户：
+<table width="80%" border="1" cellspacing="0" cellpadding="10">
+<tr>
+	<td>编号</td>
+	<td>姓名</td>
+	<td>年龄</td>
+	<td colspan="2" style="text-align:center;">操作</td>
+</tr>
+<%for(userinfo in namelist){%>
+<tr>
+	<td>${userinfo.id}</td>
+	<td>${userinfo.username}</td>
+	<td>${userinfo.age}</td>
+	<td><a href="javascript:void(0)" onclick="upDx(${userinfo.id})">修改</a></td>
+	<td><a href="${BASE_PATH}front/article/delUser.html?ID=${userinfo.id}">删除</a></td>
+</tr>
+<%}%>
+</table>
+
+<div id="upbox" style="position:absolute; left:30%; top:20%; background:#fff; border:1px solid #ccc; border-radius:5px; padding:20px 50px; display:none;">
+	<div>修改用户</div>
+	<form method="post" action="${BASE_PATH}front/article/saveUpd">
+		<table>
+			<tr>
+				<td>编号:</td>
+				<td><input id="numId" name="userInfo.id"/></td>
+			</tr>
+			<tr>
+				<td>新姓名:</td>
+				<td><input name="userInfo.username"/></td>
+			</tr>
+			<tr>
+				<td>新年龄：</td>
+				<td><input name="userInfo.age"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="保存"/></td>
+				<td><input type="button" onclick="close()" value="取消"/></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script>
+function upDx(num){
+	$("#numId").val(num);
+	$("#upbox").css("display","block");
+}
+
+function close(){
+	$("#upbox").css("display","none");
+}
+</script>
+</body>
+</html>
