@@ -8,16 +8,10 @@ import com.config.ControllerBind;
 
 @ControllerBind(controllerKey = "/front/article")
 public class HelloController extends Controller{
-	/**
-	 * 知识点:
-	 * 1、Controller提供了getPara()系列方法用来从请求中获取参数
-	 * 2、Controller提供了getModel()用来接收页面表单域传递过来的model对象
-	 */
-	
+
 	public void index(){
 		List<UserMess> userInfo = UserMess.dao.find("select * from userinfo");
 		setAttr("namelist", userInfo);
-		setAttr("upstatus",0);
 		render("/admin/index.html");
 	}
 	
@@ -34,13 +28,11 @@ public class HelloController extends Controller{
 		index();
 	}
 	
-	/*public void updUser(){
+	public void updUser(){
 		UserMess model = getModel(UserMess.class);
 		List<UserMess> umesList = model.find("SELECT * FROM userinfo WHERE id = '"+getParaToInt("ID")+"'");
-		setAttr("upInfo",umesList.get(0));
-		setAttr("upstatus",1);
-		render("/admin/index.html");
-	}*/
+		renderJson(umesList.get(0));
+	}
 	
 	public void saveUpd(){
 		UserMess model = getModel(UserMess.class,"userInfo");
@@ -53,6 +45,12 @@ public class HelloController extends Controller{
 		setAttr("namelist", userInfo);
 		setAttr("upstatus",0);
 		render("/admin/index.html");
+	}
+	
+	public void test(){
+		String canshu = getPara("canshu");
+		System.out.println("闃胯惃寰凤細"+canshu);
+		renderJson("{\"state\":\"success\",\"msg\":\"璇勮鎴愬姛锛乗"}");
 	}
 
 }

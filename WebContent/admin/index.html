@@ -65,23 +65,38 @@
 			</tr>
 			<tr>
 				<td>新姓名:</td>
-				<td><input name="userInfo.username"/></td>
+				<td><input id="newName" name="userInfo.username"/></td>
 			</tr>
 			<tr>
 				<td>新年龄：</td>
-				<td><input name="userInfo.age"/></td>
+				<td><input id="newAge" name="userInfo.age"/></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="保存"/></td>
-				<td><input type="button" onclick="close()" value="取消"/></td>
+				<td><a href="javascript:close()">取消</a></td>
 			</tr>
 		</table>
 	</form>
 </div>
 <script>
 function upDx(num){
-	$("#numId").val(num);
-	$("#upbox").css("display","block");
+	$.ajax({
+			url:"${BASE_PATH}front/article/updUser",
+			type:"POST",
+			data:{
+				"ID":num
+			},
+			dataType:"json",
+			success: function(res) {
+				console.log(res);
+				$("#numId").val(res.id);
+				$("#newName").val(res.username);
+				$("#newAge").val(res.age);
+				$("#upbox").css("display","block");
+			},error:function(){
+				alert("请求错误！");
+			}
+	});
 }
 
 function close(){
