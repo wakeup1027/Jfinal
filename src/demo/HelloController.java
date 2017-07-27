@@ -50,7 +50,7 @@ public class HelloController extends Controller{
 	public void test(){
 		String canshu = getPara("canshu");
 		System.out.println("阿萨德："+canshu);
-		renderJson("{\"state\":\"success\",\"msg\":\"评论成功！\"}");
+		renderJson("{\"state\":\"success\",\"msg\":\"�ɹ���\"}");
 	}
 
 }
